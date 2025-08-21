@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Schedule Appointment</h2>
+<form method="POST">
+  <div class="mb-3">
+    <label>Patient:</label>
+    <select name="patient_id" class="form-control" required>
+      {% for patient in patients %}
+      <option value="{{ patient[0] }}">{{ patient[1] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Doctor:</label>
+    <select name="doctor_id" class="form-control" required>
+      {% for doctor in doctors %}
+      <option value="{{ doctor[0] }}">{{ doctor[1] }} ({{ doctor[2] }})</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Date:</label>
+    <input type="date" name="appointment_date" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Notes:</label>
+    <textarea name="notes" class="form-control"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-success">Add Appointment</button>
+</form>
+{% endblock %}

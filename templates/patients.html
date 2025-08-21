@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Patients</h2>
+
+<form method="post" action="{{ url_for('add_patient') }}" class="mb-4">
+  <div class="row">
+    <div class="col-md-3">
+      <input type="text" name="name" class="form-control" placeholder="Name" required>
+    </div>
+    <div class="col-md-2">
+      <input type="number" name="age" class="form-control" placeholder="Age" required>
+    </div>
+    <div class="col-md-3">
+      <input type="text" name="illness" class="form-control" placeholder="Illness" required>
+    </div>
+    <div class="col-md-2">
+      <select name="doctor_id" class="form-control" required>
+        {% for d in doctors %}
+        <option value="{{ d[0] }}">{{ d[1] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-success">Add Patient</button>
+    </div>
+  </div>
+</form>
+
+<div class="mb-3">
+  <a href="{{ url_for('export_csv') }}" class="btn btn-info">Export CSV</a>
+  <a href="{{ url_for('export_excel') }}" class="btn btn-success">Export Excel</a>
+  <a href="{{ url_for('export_pdf') }}" class="btn btn-danger">Export PDF</a>
+</div>
+
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th><th>Name</th><th>Age</th><th>Illness</th><th>Doctor</th><th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in patients %}
+    <tr>
+      <td>{{ p[0] }}</td>
+      <td>{{ p[1] }}</td>
+      <td>{{ p[2] }}</td>
+      <td>{{ p[3] }}</td>
+      <td>{{ p[4] }}</td>
+      <td><a href="{{ url_for('delete_patient', patient_id=p[0]) }}" class="btn btn-danger btn-sm">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

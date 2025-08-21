@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Appointment</h2>
+<form method="POST">
+  <div class="mb-3">
+    <label>Patient:</label>
+    <select name="patient_id" class="form-control" required>
+      {% for patient in patients %}
+      <option value="{{ patient[0] }}" {% if patient[0] == appt[1] %}selected{% endif %}>{{ patient[1] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Doctor:</label>
+    <select name="doctor_id" class="form-control" required>
+      {% for doctor in doctors %}
+      <option value="{{ doctor[0] }}" {% if doctor[0] == appt[2] %}selected{% endif %}>{{ doctor[1] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Date:</label>
+    <input type="date" name="appointment_date" class="form-control" value="{{ appt[3] }}" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Notes:</label>
+    <textarea name="notes" class="form-control">{{ appt[4] }}</textarea>
+  </div>
+
+  <button type="submit" class="btn btn-success">Update Appointment</button>
+</form>
+{% endblock %}

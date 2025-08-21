@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Appointments</h2>
+
+<form method="post" action="{{ url_for('add_appointment') }}" class="mb-4">
+  <div class="row">
+    <div class="col-md-3">
+      <label class="form-label">Patient</label>
+      <select name="patient_id" class="form-control" required>
+        {% for p in patients %}
+        <option value="{{ p[0] }}">{{ p[1] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Doctor</label>
+      <select name="doctor_id" class="form-control" required>
+        {% for d in doctors %}
+        <option value="{{ d[0] }}">{{ d[1] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Date</label>
+      <input type="date" name="appointment_date" class="form-control" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Notes</label>
+      <input type="text" name="notes" class="form-control">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success mt-3">Add Appointment</button>
+</form>
+
+<div class="mb-3">
+  <a href="{{ url_for('export_appointments_csv') }}" class="btn btn-info">Export CSV</a>
+  <a href="{{ url_for('export_appointments_excel') }}" class="btn btn-success">Export Excel</a>
+  <a href="{{ url_for('export_appointments_pdf') }}" class="btn btn-danger">Export PDF</a>
+</div>
+
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Notes</th><th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in appointments %}
+    <tr>
+      <td>{{ a[0] }}</td>
+      <td>{{ a[1] }}</td>
+      <td>{{ a[2] }}</td>
+      <td>{{ a[3] }}</td>
+      <td>{{ a[4] }}</td>
+      <td><a href="{{ url_for('delete_appointment', appointment_id=a[0]) }}" class="btn btn-danger btn-sm">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

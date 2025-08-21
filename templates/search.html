@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Search</h2>
+
+<form class="row g-3 mb-4" method="get" action="/search">
+  <div class="col-md-4">
+    <input type="text" class="form-control" name="q" placeholder="Search keyword" value="{{ query or '' }}">
+  </div>
+  <div class="col-md-3">
+    <input type="date" class="form-control" name="start_date" value="{{ start_date or '' }}">
+  </div>
+  <div class="col-md-3">
+    <input type="date" class="form-control" name="end_date" value="{{ end_date or '' }}">
+  </div>
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-primary w-100">Search</button>
+  </div>
+</form>
+
+{% if patient_results or appointment_results %}
+<div class="mb-3">
+  <a href="/export_csv?q={{ query }}&start_date={{ start_date }}&end_date={{ end_date }}" class="btn btn-success">
+    Export to CSV
+  </a>
+  <a href="/export_excel?q={{ query }}&start_date={{ start_date }}&end_date={{ end_date }}" class="btn btn-info">
+    Export to Excel
+  </a>
+  <a href="/export_pdf?q={{ query }}&start_date={{ start_date }}&end_date={{ end_date }}" class="btn btn-danger">
+    Export to PDF
+  </a>
+</div>
+{% endif %}
+
+{% if patient_results %}
+<h4>Patients</h4>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th><th>Name</th><th>Age</th><th>Illness</th><th>Doctor</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in patient_results %}
+    <tr>
+      <td>{{ r[0] }}</td>
+      <td>{{ r[1] }}</td>
+      <td>{{ r[2] }}</td>
+      <td>{{ r[3] }}</td>
+      <td>{{ r[4] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if appointment_results %}
+<h4>Appointments</h4>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in appointment_results %}
+    <tr>
+      <td>{{ a[0] }}</td>
+      <td>{{ a[1] }}</td>
+      <td>{{ a[2] }}</td>
+      <td>{{ a[3] }}</td>
+      <td>{{ a[4] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if not patient_results and not appointment_results %}
+<p class="text-danger">No results found.</p>
+{% endif %}
+
+{% endblock %}

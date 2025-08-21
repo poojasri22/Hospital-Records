@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card text-center p-3 shadow">
+      <h3>Patients</h3>
+      <p class="display-6">{{ total_patients }}</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center p-3 shadow">
+      <h3>Doctors</h3>
+      <p class="display-6">{{ total_doctors }}</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center p-3 shadow">
+      <h3>Appointments</h3>
+      <p class="display-6">{{ total_appointments }}</p>
+    </div>
+  </div>
+</div>
+<a href="/logout" class="btn btn-danger mt-3">Logout</a>
+{% endblock %}

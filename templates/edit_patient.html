@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Patient</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label>Name:</label>
+        <input type="text" name="name" class="form-control" value="{{ patient[1] }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Age:</label>
+        <input type="number" name="age" class="form-control" value="{{ patient[2] }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Illness:</label>
+        <input type="text" name="illness" class="form-control" value="{{ patient[3] }}" required>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Doctors</h2>
+
+<!-- ✅ Add Doctor Button -->
+<a href="{{ url_for('add_doctor') }}" class="btn btn-primary mb-3">Add Doctor</a>
+
+<div class="mb-3">
+  <a href="{{ url_for('export_doctors_csv') }}" class="btn btn-info">Export CSV</a>
+  <a href="{{ url_for('export_doctors_excel') }}" class="btn btn-success">Export Excel</a>
+  <a href="{{ url_for('export_doctors_pdf') }}" class="btn btn-danger">Export PDF</a>
+</div>
+
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Specialization</th>
+      <th>Phone</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for doctor in doctors %}
+    <tr>
+      <td>{{ doctor[0] }}</td>
+      <td>{{ doctor[1] }}</td>
+      <td>{{ doctor[2] }}</td>
+      <td>{{ doctor[3] }}</td>
+      <td>
+        <a href="{{ url_for('delete_doctor', doctor_id=doctor[0]) }}" 
+           class="btn btn-danger btn-sm">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
